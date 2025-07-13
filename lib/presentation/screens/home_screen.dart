@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../../../core/constants/app_constants.dart';
 import '../widgets/difficulty_selector.dart';
 
@@ -10,17 +11,28 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int? _selectedDifficulty;
+  int? _selectedIndex;
+  final difficultyMap = ['easy', 'medium', 'hard', 'geek'];
   int _slideCount = 5;
 
   void _start() {
-    if (_selectedDifficulty == null) {
+    if (_selectedIndex == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Seleziona una difficoltà!')),
       );
       return;
     }
-    Navigator.of(context).pushNamed('/intro');
+
+    final selectedDifficulty = difficultyMap[_selectedIndex!];
+
+    context.goNamed(
+      'loading',
+      extra: {
+        'difficulty': selectedDifficulty,
+        'slideCount': _slideCount,
+      },
+    );
+
   }
 
   @override
@@ -46,9 +58,9 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(height: 12),
               DifficultySelector(
                 onSelected: (index) {
-                  setState(() => _selectedDifficulty = index);
+                  setState(() => _selectedIndex = index);
                 },
-                selectedIndex: _selectedDifficulty,
+                selectedIndex: _selectedIndex,
               ),
               const SizedBox(height: 32),
               const Text('Numero di slide:', style: TextStyle(fontSize: 18)),

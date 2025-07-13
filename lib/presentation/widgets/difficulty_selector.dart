@@ -12,7 +12,7 @@ class DifficultySelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final difficulties = ['🥶', '🔥', '💀'];
+    final difficulties = ['🥶', '🔥', '💀', '👨‍💻'];
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
