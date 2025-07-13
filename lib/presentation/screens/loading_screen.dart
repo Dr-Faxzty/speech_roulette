@@ -39,7 +39,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
       slideCount: widget.slideCount,
     );
 
-    //context.goNamed('presentation', extra: session);
+    context.goNamed('presentation', extra: session);
   }
 
   @override

@@ -1,8 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../data/models/speech_session.dart';
 import '../presentation/screens/home_screen.dart';
 import '../presentation/screens/loading_screen.dart';
+import '../presentation/screens/presentation_screen.dart';
 
 class AppRouter {
   static final GoRouter router = GoRouter(
@@ -24,6 +25,15 @@ class AppRouter {
           );
         },
       ),
+      GoRoute(
+        path: '/presentation',
+        name: 'presentation',
+        builder: (context, state) {
+          final session = state.extra as SpeechSession;
+          return PresentationScreen(session: session);
+        },
+      ),
+
     ],
   );
 }
