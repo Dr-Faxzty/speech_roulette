@@ -28,3 +28,7 @@ flutter:
   uses-material-design: true
   assets:
     - .env
+  fonts:
+    - family: SpongeBoy
+      fonts:
+        - asset: assets/fonts/SpongeBoyMeBob.ttf
