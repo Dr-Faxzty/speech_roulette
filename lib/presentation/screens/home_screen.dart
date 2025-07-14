@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/constants/app_constants.dart';
 import '../widgets/difficulty_selector.dart';
+import '../widgets/number_selector.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -32,13 +33,12 @@ class _HomeScreenState extends State<HomeScreen> {
         'slideCount': _slideCount,
       },
     );
-
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppConstants.primaryColor,
+      backgroundColor: AppConstants.backgroundColor,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(24),
@@ -54,7 +54,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 32),
-              const Text('Scegli la difficoltà:', style: TextStyle(fontSize: 18)),
+              const Text("Seleziona la difficolta'",
+                style: TextStyle(fontSize: 60, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,),
               const SizedBox(height: 12),
               DifficultySelector(
                 onSelected: (index) {
@@ -63,18 +65,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 selectedIndex: _selectedIndex,
               ),
               const SizedBox(height: 32),
-              const Text('Numero di slide:', style: TextStyle(fontSize: 18)),
+              const Text('Numero di slides',
+                style: TextStyle(fontSize: 60, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,),
               const SizedBox(height: 12),
-              DropdownButton<int>(
-                value: _slideCount,
-                onChanged: (value) {
-                  if (value != null) {
-                    setState(() => _slideCount = value);
-                  }
-                },
-                items: [3, 5, 7, 10, 15]
-                    .map((val) => DropdownMenuItem(value: val, child: Text('$val')))
-                    .toList(),
+              NumberSelector(
+                numbers: [3, 5, 7, 10, 15],
+                onChanged: (value) => setState(() => _slideCount = value),
               ),
               const Spacer(),
               ElevatedButton(
