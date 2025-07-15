@@ -28,6 +28,10 @@ flutter:
   uses-material-design: true
   assets:
     - .env
+    - assets/img/difficulty/easy.png
+    - assets/img/difficulty/medium.png
+    - assets/img/difficulty/hard.png
+    - assets/img/difficulty/off.png
   fonts:
     - family: SpongeBoy
       fonts:

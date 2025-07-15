@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import '../../../core/constants/app_constants.dart';
 import '../widgets/difficulty_selector.dart';
 import '../widgets/number_selector.dart';
+import '../../../data/models/difficulty.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -12,24 +13,21 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int? _selectedIndex;
-  final difficultyMap = ['easy', 'medium', 'hard', 'geek'];
+  Difficulty? _selectedDifficulty;
   int _slideCount = 5;
 
   void _start() {
-    if (_selectedIndex == null) {
+    if (_selectedDifficulty == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Seleziona una difficoltà!')),
       );
       return;
     }
 
-    final selectedDifficulty = difficultyMap[_selectedIndex!];
-
     context.goNamed(
       'loading',
       extra: {
-        'difficulty': selectedDifficulty,
+        'difficulty': _selectedDifficulty!.name,
         'slideCount': _slideCount,
       },
     );
@@ -54,20 +52,24 @@ class _HomeScreenState extends State<HomeScreen> {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 32),
-              const Text("Seleziona la difficolta'",
+              const Text(
+                "Seleziona la difficoltà",
                 style: TextStyle(fontSize: 60, fontWeight: FontWeight.bold),
-                textAlign: TextAlign.center,),
+                textAlign: TextAlign.center,
+              ),
               const SizedBox(height: 12),
               DifficultySelector(
-                onSelected: (index) {
-                  setState(() => _selectedIndex = index);
+                initial: _selectedDifficulty,
+                onChanged: (difficulty) {
+                  setState(() => _selectedDifficulty = difficulty);
                 },
-                selectedIndex: _selectedIndex,
               ),
               const SizedBox(height: 32),
-              const Text('Numero di slides',
+              const Text(
+                'Numero di slides',
                 style: TextStyle(fontSize: 60, fontWeight: FontWeight.bold),
-                textAlign: TextAlign.center,),
+                textAlign: TextAlign.center,
+              ),
               const SizedBox(height: 12),
               NumberSelector(
                 numbers: [3, 5, 7, 10, 15],

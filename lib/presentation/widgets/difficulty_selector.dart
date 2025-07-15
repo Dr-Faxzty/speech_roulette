@@ -1,39 +1,51 @@
 import 'package:flutter/material.dart';
+import 'package:speech_roulette/presentation/widgets/shaking_image.dart';
+import '../../../data/models/difficulty.dart';
 
-class DifficultySelector extends StatelessWidget {
-  final int? selectedIndex;
-  final void Function(int) onSelected;
+class DifficultySelector extends StatefulWidget {
+  final void Function(Difficulty)? onChanged;
+  final Difficulty? initial;
 
-  const DifficultySelector({
-    super.key,
-    required this.selectedIndex,
-    required this.onSelected,
-  });
+  const DifficultySelector({this.onChanged, this.initial, super.key});
+
+  @override
+  State<DifficultySelector> createState() => _DifficultySelectorState();
+}
+
+class _DifficultySelectorState extends State<DifficultySelector> {
+  Difficulty? selected;
+
+  @override
+  void initState() {
+    super.initState();
+    selected = widget.initial;
+  }
 
   @override
   Widget build(BuildContext context) {
-    final difficulties = ['🥶', '🔥', '💀', '👨‍💻'];
-
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: List.generate(difficulties.length, (index) {
-        final isSelected = selectedIndex == index;
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: Difficulty.values
+          .where((d) => d != Difficulty.off)
+          .map((difficulty) {
+        final isSelected = selected == difficulty;
+
         return GestureDetector(
-          onTap: () => onSelected(index),
-          child: Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: isSelected ? Colors.black : Colors.white,
-              shape: BoxShape.circle,
-              border: Border.all(color: Colors.black),
-            ),
-            child: Text(
-              difficulties[index],
-              style: TextStyle(fontSize: 24, color: isSelected ? Colors.white : Colors.black),
+          onTap: () {
+            setState(() => selected = difficulty);
+            widget.onChanged?.call(difficulty);
+          },
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
+            margin: const EdgeInsets.symmetric(horizontal: 32),
+            child: CrazyShake(
+              active: isSelected,
+              intensity: difficulty.shakeIntensity.toDouble(),
+              child: Image.asset(isSelected ? difficulty.assetPath : Difficulty.off.assetPath, height: isSelected ? 84 : 72, width: isSelected ? 84 : 72,),
             ),
           ),
         );
-      }),
+      }).toList(),
     );
   }
 }
