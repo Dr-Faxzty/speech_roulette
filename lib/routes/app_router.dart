@@ -23,6 +23,7 @@ class AppRouter {
           return LoadingScreen(
             difficulty: extra['difficulty'] as String,
             slideCount: extra['slideCount'] as int,
+            orientation: extra['orientation'] as String,
           );
         },
       ),

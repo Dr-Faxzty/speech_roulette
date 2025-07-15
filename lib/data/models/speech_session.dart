@@ -1,11 +1,13 @@
 class SpeechSession {
-  final String theme;
+  final String topic;
   final String difficulty;
   final int slideCount;
+  final String orientation;
 
   SpeechSession({
-    required this.theme,
+    required this.topic,
     required this.difficulty,
     required this.slideCount,
+    required this.orientation,
   });
 }

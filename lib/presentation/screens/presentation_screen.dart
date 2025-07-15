@@ -55,7 +55,7 @@ class _PresentationScreenState extends State<PresentationScreen> {
                 color: Colors.black,
                 width: double.infinity,
                 child: Text(
-                  widget.session.theme,
+                  widget.session.topic,
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 20,
