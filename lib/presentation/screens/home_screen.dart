@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:speech_roulette/presentation/widgets/play_button.dart';
 import '../../../core/constants/app_constants.dart';
 import '../widgets/difficulty_selector.dart';
 import '../widgets/number_selector.dart';
@@ -41,6 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Padding(
           padding: const EdgeInsets.all(24),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const Text(
@@ -51,35 +53,42 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 textAlign: TextAlign.center,
               ),
+
               const SizedBox(height: 32),
+
               const Text(
-                "Seleziona la difficoltà",
+                "Seleziona la difficolta'",
                 style: TextStyle(fontSize: 60, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
+
               const SizedBox(height: 12),
+
               DifficultySelector(
                 initial: _selectedDifficulty,
                 onChanged: (difficulty) {
                   setState(() => _selectedDifficulty = difficulty);
                 },
               ),
+
               const SizedBox(height: 32),
+
               const Text(
                 'Numero di slides',
                 style: TextStyle(fontSize: 60, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
+
               const SizedBox(height: 12),
+
               NumberSelector(
                 numbers: [3, 5, 7, 10, 15],
                 onChanged: (value) => setState(() => _slideCount = value),
               ),
-              const Spacer(),
-              ElevatedButton(
-                onPressed: _start,
-                child: const Text('Inizia!'),
-              )
+
+              const SizedBox(height: 12),
+
+              BouncingPlayButton(onPressed: _start),
             ],
           ),
         ),
