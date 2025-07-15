@@ -37,6 +37,22 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Image.asset(
+              'assets/img/logo.png',
+              height: 40,
+            ),
+            const SizedBox(width: 16),
+            buildTitle("Speech Roulette", fontSize: 32),
+          ],
+        ),
+        actions: [Image.asset('assets/img/gif/penguin.gif', height: 100)],
+        backgroundColor: AppConstants.backgroundColor,
+      ),
       backgroundColor: AppConstants.backgroundColor,
       body: SafeArea(
         child: Padding(
@@ -45,27 +61,12 @@ class _HomeScreenState extends State<HomeScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const Text(
-                'Speech Roulette',
-                style: TextStyle(
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
-                ),
-                textAlign: TextAlign.center,
-              ),
-
-              const SizedBox(height: 32),
-
-              const Text(
-                "Seleziona la difficolta'",
-                style: TextStyle(fontSize: 60, fontWeight: FontWeight.bold),
-                textAlign: TextAlign.center,
-              ),
+              buildTitle("Seleziona la difficolta'", fontSize: 60),
 
               const SizedBox(height: 12),
 
               DifficultySelector(
-                initial: _selectedDifficulty,
+                initial: Difficulty.easy,
                 onChanged: (difficulty) {
                   setState(() => _selectedDifficulty = difficulty);
                 },
@@ -73,11 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
               const SizedBox(height: 32),
 
-              const Text(
-                'Numero di slides',
-                style: TextStyle(fontSize: 60, fontWeight: FontWeight.bold),
-                textAlign: TextAlign.center,
-              ),
+              buildTitle("Numero di slides", fontSize: 60),
 
               const SizedBox(height: 12),
 
@@ -93,6 +90,17 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget buildTitle(String text, {double fontSize = 32}) {
+    return Text(
+      text,
+      style: TextStyle(
+        fontSize: fontSize,
+        fontWeight: FontWeight.bold,
+      ),
+      textAlign: TextAlign.center,
     );
   }
 }
