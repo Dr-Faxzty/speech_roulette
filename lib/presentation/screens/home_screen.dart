@@ -5,6 +5,7 @@ import '../widgets/difficulty_selector.dart';
 import '../widgets/number_selector.dart';
 import '../widgets/orientation_selector.dart';
 import '../widgets/play_button.dart';
+import '../widgets/responsive_title.dart';
 import '../../../data/models/difficulty.dart';
 import '../../../data/models/orientation.dart' as model;
 
@@ -44,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
               height: 40,
             ),
             const SizedBox(width: 16),
-            buildTitle("SPEECH ROULETTE", fontSize: 32),
+            ResponsiveTitle("SPEECH ROULETTE", maxFontSize: 32),
           ],
         ),
         actions: [Image.asset('assets/img/gif/penguin.gif', height: 100)],
@@ -53,14 +54,14 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: AppConstants.backgroundColor,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(24),
+          padding: const EdgeInsets.all(32),
           child: Stack(
             children: [
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  buildTitle("Seleziona la difficolta'", fontSize: 60),
+                  ResponsiveTitle("Seleziona la difficolta'", maxFontSize: 60),
 
                   const SizedBox(height: 12),
 
@@ -73,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                   const SizedBox(height: 32),
 
-                  buildTitle("Numero di slides", fontSize: 60),
+                  ResponsiveTitle("Numero di slides", maxFontSize: 60),
 
                   const SizedBox(height: 12),
 
@@ -97,17 +98,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-    );
-  }
-
-  Widget buildTitle(String text, {double fontSize = 32}) {
-    return Text(
-      text,
-      style: TextStyle(
-        fontSize: fontSize,
-        fontWeight: FontWeight.bold,
-      ),
-      textAlign: TextAlign.center,
     );
   }
 }
