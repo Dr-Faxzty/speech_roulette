@@ -76,8 +76,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
                   ResponsiveTitle("Numero di slides", maxFontSize: 60),
 
-                  const SizedBox(height: 12),
-
                   NumberSelector(
                     numbers: [3, 5, 7, 10, 15],
                     onChanged: (value) => setState(() => _slideCount = value),
