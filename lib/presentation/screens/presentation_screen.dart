@@ -20,7 +20,8 @@ class _PresentationScreenState extends State<PresentationScreen> {
   @override
   void initState() {
     super.initState();
-    _imagesFuture = UnsplashService.getRandomImages(widget.session.slideCount);
+    _imagesFuture = UnsplashService.getRandomImages(count: widget.session.slideCount, orientation: widget.session.orientation);
+    debugPrint('Orientation: ${widget.session.orientation}');
   }
 
   void _nextSlide(int totalSlides) {
@@ -34,6 +35,7 @@ class _PresentationScreenState extends State<PresentationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[100],
       body: FutureBuilder<List<UnsplashImage>>(
         future: _imagesFuture,
         builder: (context, snapshot) {
@@ -48,37 +50,126 @@ class _PresentationScreenState extends State<PresentationScreen> {
           final images = snapshot.data!;
           final current = images[_currentSlide];
 
-          return Column(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(16),
-                color: Colors.black,
-                width: double.infinity,
-                child: Text(
-                  widget.session.topic,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
+          return SafeArea(
+            child: Column(
+              children: [
+                // Top Title
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 24),
+                  child: Text(
+                    widget.session.topic.toUpperCase(),
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.w900,
+                      color: Color(0xFFFFC107), // giallo
+                      letterSpacing: 1.5,
+                    ),
                   ),
-                  textAlign: TextAlign.center,
                 ),
-              ),
-              Expanded(
-                child: Image.network(
-                  current.url,
-                  fit: BoxFit.cover,
-                  width: double.infinity,
+
+                // Image Card
+                Expanded(
+                  child: Center(
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 24),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.3),
+                            blurRadius: 12,
+                            offset: const Offset(0, 6),
+                          ),
+                        ],
+                      ),
+                      clipBehavior: Clip.hardEdge,
+                      child: AspectRatio(
+                        aspectRatio: current.aspectRatio,
+                        child: Image.network(
+                          current.url,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(16),
-                child: ElevatedButton(
-                  onPressed: () => _nextSlide(images.length),
-                  child: Text(_currentSlide < images.length - 1 ? 'Prossima' : 'Fine'),
+
+                // Author Credits
+                Padding(
+                  padding: const EdgeInsets.only(top: 16),
+                  child: Text.rich(
+                    TextSpan(
+                      children: [
+                        const TextSpan(
+                          text: 'Photo by ',
+                          style: TextStyle(color: Colors.black54),
+                        ),
+                        TextSpan(
+                          text: current.author,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFF2196F3),
+                          ),
+                        ),
+                        const TextSpan(
+                          text: ' on ',
+                          style: TextStyle(color: Colors.black54),
+                        ),
+                        const TextSpan(
+                          text: 'Unsplash',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFF4CAF50),
+                          ),
+                        ),
+                      ],
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
                 ),
-              ),
-            ],
+
+                // Navigation Buttons
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 24),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      // Prev
+                      ElevatedButton(
+                        onPressed: _currentSlide > 0
+                            ? () => setState(() => _currentSlide--)
+                            : null,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.grey[800],
+                        ),
+                        child: const Text('prev'),
+                      ),
+                      const SizedBox(width: 24),
+
+                      // Slide counter
+                      Text(
+                        '${_currentSlide + 1}/${images.length}',
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(width: 24),
+
+                      // Next
+                      ElevatedButton(
+                        onPressed: () => _nextSlide(images.length),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFFFFC107),
+                        ),
+                        child: Text(_currentSlide < images.length - 1 ? 'next' : 'fine'),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           );
         },
       ),

@@ -15,10 +15,20 @@ class _NumberSelectorState extends State<NumberSelector> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
+    double scale(double base) => (base * screenWidth / 400).clamp(base * 0.6, base);
+
+    final double fontSizeSelected = scale(48);
+    final double fontSizeUnselected = scale(36);
+    final double containerSize = scale(100);
+    final double padding = scale(16);
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: widget.numbers.map((number) {
         final isSelected = number == selected;
+
         return GestureDetector(
           onTap: () {
             setState(() => selected = number);
@@ -27,9 +37,9 @@ class _NumberSelectorState extends State<NumberSelector> {
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 250),
             curve: Curves.easeOut,
-            width: 100,
-            height: 100,
-            padding: const EdgeInsets.all(16),
+            width: containerSize,
+            height: containerSize,
+            padding: EdgeInsets.all(padding),
             alignment: Alignment.center,
             child: Transform.rotate(
               angle: isSelected ? -0.2 : 0,
@@ -38,7 +48,7 @@ class _NumberSelectorState extends State<NumberSelector> {
                 curve: Curves.easeOut,
                 style: TextStyle(
                   fontFamily: 'SpongeBoy',
-                  fontSize: isSelected ? 48 : 36,
+                  fontSize: isSelected ? fontSizeSelected : fontSizeUnselected,
                   color: isSelected ? Colors.orange : Colors.grey.shade700,
                   fontWeight: FontWeight.bold,
                 ),
