@@ -29,13 +29,12 @@ class UnsplashService {
 
     final photos = await request.goAndGet();
 
-    debugPrint('Fetched $photos ');
-
     return photos.map((photo) {
       return UnsplashImage(
         id: photo.id,
         url: photo.urls.regular.toString(),
         author: photo.user.name.toString(),
+        authorUrl: photo.user.links.html.toString(),
         width: photo.width,
         height: photo.height,
       );

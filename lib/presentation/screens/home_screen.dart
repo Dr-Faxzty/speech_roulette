@@ -48,7 +48,22 @@ class _HomeScreenState extends State<HomeScreen> {
             ResponsiveTitle("SPEECH ROULETTE", maxFontSize: 32),
           ],
         ),
-        actions: [Image.asset('assets/img/gif/penguin.gif', height: 100)],
+        actions: [
+          GestureDetector(
+            onTap: () {
+              setState(() {
+                _selectedDifficulty = Difficulty.geek;
+                _slideCount = 7;
+                _selectedOrientation = model.Orientation.landscape;
+              });
+              _start();
+            },
+            child: Image.asset(
+              Difficulty.geek.assetPath,
+              height: 100,
+            ),
+          ),
+        ],
         backgroundColor: AppConstants.backgroundColor,
       ),
       backgroundColor: AppConstants.backgroundColor,

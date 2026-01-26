@@ -3,6 +3,7 @@ import '../../../data/models/unsplash_image.dart';
 import '../../../core/services/unsplash_service.dart';
 import '../../../data/models/speech_session.dart';
 import 'package:go_router/go_router.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class PresentationScreen extends StatefulWidget {
   final SpeechSession session;
@@ -21,7 +22,6 @@ class _PresentationScreenState extends State<PresentationScreen> {
   void initState() {
     super.initState();
     _imagesFuture = UnsplashService.getRandomImages(count: widget.session.slideCount, orientation: widget.session.orientation);
-    debugPrint('Orientation: ${widget.session.orientation}');
   }
 
   void _nextSlide(int totalSlides) {
@@ -60,7 +60,7 @@ class _PresentationScreenState extends State<PresentationScreen> {
                     widget.session.topic.toUpperCase(),
                     textAlign: TextAlign.center,
                     style: const TextStyle(
-                      fontSize: 24,
+                      fontSize: 32,
                       fontWeight: FontWeight.w900,
                       color: Color(0xFFFFC107), // giallo
                       letterSpacing: 1.5,
@@ -105,22 +105,32 @@ class _PresentationScreenState extends State<PresentationScreen> {
                           text: 'Photo by ',
                           style: TextStyle(color: Colors.black54),
                         ),
-                        TextSpan(
-                          text: current.author,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFF2196F3),
+                        WidgetSpan(
+                          child: InkWell(
+                            onTap: () => launchUrl(Uri.parse(current.authorUrl)),
+                            child: Text(
+                              current.author,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xFF4CAF50),
+                              ),
+                            ),
                           ),
                         ),
                         const TextSpan(
                           text: ' on ',
                           style: TextStyle(color: Colors.black54),
                         ),
-                        const TextSpan(
-                          text: 'Unsplash',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFF4CAF50),
+                        WidgetSpan(
+                          child: InkWell(
+                            onTap: () => launchUrl(Uri.parse('https://unsplash.com')),
+                            child: const Text(
+                              'Unsplash',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xFF4CAF50),
+                              ),
+                            ),
                           ),
                         ),
                       ],
@@ -143,7 +153,7 @@ class _PresentationScreenState extends State<PresentationScreen> {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.grey[800],
                         ),
-                        child: const Text('prev'),
+                        child: const Text('prev', style: TextStyle(color: Colors.white,)),
                       ),
                       const SizedBox(width: 24),
 
@@ -163,7 +173,7 @@ class _PresentationScreenState extends State<PresentationScreen> {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xFFFFC107),
                         ),
-                        child: Text(_currentSlide < images.length - 1 ? 'next' : 'fine'),
+                        child: Text(_currentSlide < images.length - 1 ? 'next' : 'end', style: TextStyle(color: Colors.black,),),
                       ),
                     ],
                   ),

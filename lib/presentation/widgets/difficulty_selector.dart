@@ -28,7 +28,7 @@ class _DifficultySelectorState extends State<DifficultySelector> {
         return Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: Difficulty.values
-              .where((d) => d != Difficulty.off)
+              .where((d) => d != Difficulty.off && d != Difficulty.geek)
               .map((difficulty) {
             final isSelected = selected == difficulty;
             final double maxSize = isSelected ? 84 : 72;

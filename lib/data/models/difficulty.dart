@@ -2,6 +2,7 @@ enum Difficulty {
   easy,
   medium,
   hard,
+  geek,
   off;
 
   String get assetPath {
@@ -12,6 +13,8 @@ enum Difficulty {
         return 'assets/img/difficulty/medium.png';
       case Difficulty.hard:
         return 'assets/img/difficulty/hard.png';
+      case Difficulty.geek:
+        return 'assets/img/gif/penguin.gif';
       case Difficulty.off:
         return 'assets/img/difficulty/off.png';
     }
