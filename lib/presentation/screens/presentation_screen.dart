@@ -4,11 +4,14 @@ import '../../../core/services/unsplash_service.dart';
 import '../../../data/models/speech_session.dart';
 import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../../../core/services/i_unsplash_service.dart';
+import '../../../core/services/unsplash_service.dart';
 
 class PresentationScreen extends StatefulWidget {
   final SpeechSession session;
+  final IUnsplashService unsplashService;
 
-  const PresentationScreen({super.key, required this.session});
+  PresentationScreen({super.key, required this.session, IUnsplashService? unsplashService}) : unsplashService = unsplashService ?? UnsplashService();
 
   @override
   State<PresentationScreen> createState() => _PresentationScreenState();
@@ -21,7 +24,7 @@ class _PresentationScreenState extends State<PresentationScreen> {
   @override
   void initState() {
     super.initState();
-    _imagesFuture = UnsplashService.getRandomImages(count: widget.session.slideCount, orientation: widget.session.orientation);
+    _imagesFuture = widget.unsplashService.getRandomImages(count: widget.session.slideCount, orientation: widget.session.orientation);
   }
 
   void _nextSlide(int totalSlides) {

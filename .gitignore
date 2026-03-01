@@ -1,49 +1,72 @@
-# Miscellaneous
+# =========================
+# General
+# =========================
 *.class
 *.log
 *.pyc
 *.swp
 .DS_Store
-.atom/
-.build/
-.buildlog/
-.history
-.svn/
-.swiftpm/
-migrate_working_dir/
+Thumbs.db
+*.tmp
 
-# IntelliJ related
+# =========================
+# IDE
+# =========================
+.idea/
 *.iml
 *.ipr
 *.iws
-.idea/
+.vscode/
 
-# The .vscode folder contains launch configuration and tasks you configure in
-# VS Code which you may wish to be included in version control, so this line
-# is commented out by default.
-#.vscode/
-
-# Flutter/Dart/Pub related
-**/doc/api/
-**/ios/Flutter/.last_build_id
+# =========================
+# Flutter / Dart
+# =========================
 .dart_tool/
 .flutter-plugins
 .flutter-plugins-dependencies
-.pub-cache/
 .pub/
-/build/
+.pub-cache/
+build/
+coverage/
+coverage/lcov.info
 
-# Symbolication related
-app.*.symbols
+# Flutter API docs
+**/doc/api/
 
-# Obfuscation related
-app.*.map.json
+# iOS
+**/ios/Flutter/.last_build_id
 
-# Android Studio will place build artifacts here
+# Android build artifacts
 /android/app/debug
 /android/app/profile
 /android/app/release
 
+# macOS
+macos/Flutter/ephemeral/
+
+# Linux
+linux/flutter/ephemeral/
+
+# Windows
+windows/flutter/ephemeral/
+
+# Web build
+build/web/
+
+# =========================
+# Obfuscation
+# =========================
+app.*.symbols
+app.*.map.json
+
+# =========================
+# Environment files (IMPORTANT)
+# =========================
 .env
-*.env
-*.env.*
+.env.*
+!.env.example
+
+# =========================
+# Test artifacts
+# =========================
+test_driver/report.json

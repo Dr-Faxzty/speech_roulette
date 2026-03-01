@@ -68,47 +68,57 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       backgroundColor: AppConstants.backgroundColor,
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(32),
-          child: Stack(
-            children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  ResponsiveTitle("Seleziona la difficolta'", maxFontSize: 60),
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            return SingleChildScrollView(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  minHeight: constraints.maxHeight,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(32),
+                  child: Stack(
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          ResponsiveTitle("Seleziona la difficolta'", maxFontSize: 60),
+                          const SizedBox(height: 12),
 
-                  const SizedBox(height: 12),
+                          DifficultySelector(
+                            initial: Difficulty.easy,
+                            onChanged: (difficulty) {
+                              setState(() => _selectedDifficulty = difficulty);
+                            },
+                          ),
 
-                  DifficultySelector(
-                    initial: Difficulty.easy,
-                    onChanged: (difficulty) {
-                      setState(() => _selectedDifficulty = difficulty);
-                    },
+                          const SizedBox(height: 32),
+
+                          ResponsiveTitle("Numero di slides", maxFontSize: 60),
+
+                          NumberSelector(
+                            numbers: [3, 5, 7, 10, 15],
+                            onChanged: (value) => setState(() => _slideCount = value),
+                          ),
+
+                          const SizedBox(height: 12),
+
+                          BouncingPlayButton(onPressed: _start),
+                        ],
+                      ),
+
+                      OrientationSelector(
+                        onChanged: (orientation) => setState(() {
+                          _selectedOrientation = orientation;
+                        }),
+                      ),
+                    ],
                   ),
-
-                  const SizedBox(height: 32),
-
-                  ResponsiveTitle("Numero di slides", maxFontSize: 60),
-
-                  NumberSelector(
-                    numbers: [3, 5, 7, 10, 15],
-                    onChanged: (value) => setState(() => _slideCount = value),
-                  ),
-
-                  const SizedBox(height: 12),
-
-                  BouncingPlayButton(onPressed: _start),
-                ],
+                ),
               ),
-
-              OrientationSelector(
-                onChanged: (orientation) => setState(() {
-                  _selectedOrientation = orientation;
-                }),
-              ),
-            ],
-          ),
+            );
+          },
         ),
       ),
     );

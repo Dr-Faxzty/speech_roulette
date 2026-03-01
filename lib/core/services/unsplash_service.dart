@@ -1,28 +1,33 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:unsplash_client/unsplash_client.dart';
 import '../../data/models/unsplash_image.dart';
+import 'i_unsplash_service.dart';
 
-class UnsplashService {
-  static final String _accessKey = dotenv.env['UNSPLASH_ACCESS_KEY'] ?? '';
+class UnsplashService implements IUnsplashService {
+  late final UnsplashClient _client;
 
-  static final _client = UnsplashClient(
-    settings: ClientSettings(credentials: AppCredentials(accessKey: _accessKey)),
-  );
+  UnsplashService() {
+    final accessKey = dotenv.env['UNSPLASH_ACCESS_KEY'] ?? '';
 
-  static Future<List<UnsplashImage>> getRandomImages({
+    if (accessKey.isEmpty) {
+      throw Exception('API key non trovata. Configura .env correttamente.');
+    }
+
+    _client = UnsplashClient(
+      settings: ClientSettings(
+        credentials: AppCredentials(accessKey: accessKey),
+      ),
+    );
+  }
+
+  @override
+  Future<List<UnsplashImage>> getRandomImages({
     required int count,
     String? orientation,
   }) async {
-    if (_accessKey.isEmpty) {
-      throw Exception('API key non trovata. Assicurati che .env sia configurato correttamente.');
-    }
-
-    debugPrint('Fetching $count images with orientation: $orientation');
-
     final request = _client.photos.random(
       count: count,
-      orientation: orientation == 'Portrait'
+      orientation: orientation?.toLowerCase() == 'portrait'
           ? PhotoOrientation.portrait
           : PhotoOrientation.landscape,
     );
