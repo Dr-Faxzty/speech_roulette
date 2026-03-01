@@ -18,6 +18,16 @@ class AppRouter {
       GoRoute(
         path: '/loading',
         name: 'loading',
+        redirect: (context, state) {
+          if (state.extra == null || state.extra is! Map<String, dynamic>) {
+            return '/';
+          }
+          final extra = state.extra as Map<String, dynamic>;
+          if (!extra.containsKey('difficulty') || !extra.containsKey('slideCount') || !extra.containsKey('orientation')) {
+            return '/';
+          }
+          return null;
+        },
         builder: (context, state) {
           final extra = state.extra as Map<String, dynamic>;
           return LoadingScreen(
@@ -30,6 +40,12 @@ class AppRouter {
       GoRoute(
         path: '/presentation',
         name: 'presentation',
+        redirect: (context, state) {
+          if (state.extra == null || state.extra is! SpeechSession) {
+            return '/';
+          }
+          return null;
+        },
         builder: (context, state) {
           final session = state.extra as SpeechSession;
           return PresentationScreen(session: session);
