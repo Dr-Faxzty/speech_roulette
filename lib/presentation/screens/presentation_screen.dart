@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../data/models/unsplash_image.dart';
 import '../../../core/services/unsplash_service.dart';
 import '../../../data/models/speech_session.dart';
-import 'package:go_router/go_router.dart';
-import 'package:url_launcher/url_launcher.dart';
 import '../../../core/services/i_unsplash_service.dart';
-import '../../../core/services/unsplash_service.dart';
 
 class PresentationScreen extends StatefulWidget {
   final SpeechSession session;
@@ -80,7 +79,7 @@ class _PresentationScreenState extends State<PresentationScreen> {
                         borderRadius: BorderRadius.circular(16),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.3),
+                            color: Colors.black.withValues(alpha: 0.3),
                             blurRadius: 12,
                             offset: const Offset(0, 6),
                           ),

@@ -33,7 +33,6 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - .env
     - assets/img/difficulty/easy.png
     - assets/img/difficulty/medium.png
     - assets/img/difficulty/hard.png

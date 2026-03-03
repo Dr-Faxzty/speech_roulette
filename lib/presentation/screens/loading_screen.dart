@@ -56,6 +56,8 @@ class _LoadingScreenState extends State<LoadingScreen> with SingleTickerProvider
       orientation: widget.orientation
     );
 
+    if(!mounted) return;
+
     context.goNamed('presentation', extra: session);
   }
 
