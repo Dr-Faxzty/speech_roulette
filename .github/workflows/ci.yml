@@ -11,27 +11,22 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: stable
+          channel: stable
           cache: true
 
       - name: Install dependencies
         run: flutter pub get
-
-      - name: Generate mocks
-        run: flutter pub run build_runner build --delete-conflicting-outputs
 
       - name: Analyze code
         run: flutter analyze
 
       - name: Run tests with coverage
         run: flutter test --coverage
-        env:
-          UNSPLASH_ACCESS_KEY: ${{ secrets.UNSPLASH_ACCESS_KEY }}
 
       - name: Check coverage threshold (70%)
         run: |
@@ -46,7 +41,7 @@ jobs:
           fi
 
       - name: Upload coverage report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: coverage-report
           path: coverage/lcov.info
