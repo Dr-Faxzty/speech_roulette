@@ -28,6 +28,10 @@ jobs:
       - name: Analyze code
         run: flutter analyze
 
+      - name: Debug assets
+        run: |
+          ls -R assets
+
       - name: Run tests with coverage
         run: flutter test --coverage
         env:
