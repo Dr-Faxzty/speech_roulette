@@ -56,5 +56,6 @@ jobs:
           path: coverage/lcov.info
 
       - name: Build Web
-        run: flutter build web --release \
-              --dart-define=UNSPLASH_ACCESS_KEY=${{ secrets.UNSPLASH_ACCESS_KEY }}
+        run: |
+          flutter build web --release \
+            --dart-define=UNSPLASH_ACCESS_KEY=${{ secrets.UNSPLASH_ACCESS_KEY }}
