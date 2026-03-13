@@ -45,4 +45,4 @@ flutter:
   fonts:
     - family: SpongeBoy
       fonts:
-        - asset: assets/fonts/SpongeBoyMeBob.ttf
+        - asset: assets/fonts/SpongeboyMeBob.ttf
