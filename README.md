@@ -2,7 +2,6 @@
 
 [![Flutter CI](https://github.com/Dr-Faxzty/speech_roulette/actions/workflows/ci.yml/badge.svg)](https://github.com/Dr-Faxzty/speech_roulette/actions/workflows/ci.yml)
 ![Flutter](https://img.shields.io/badge/Platform-Flutter-02569B?logo=flutter)
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Contributi benvenuti](https://img.shields.io/badge/contributions-welcome-brightgreen)
 
 **[🌐 Gioca ora su GitHub Pages](https://dr-faxzty.github.io/speech_roulette/)**
