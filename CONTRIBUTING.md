@@ -59,7 +59,9 @@ The project is built entirely with **Flutter**.
 ## 📝Rules for Commits
 
 We use the Conventional Commits standard to maintain a clear and consistent commit history.
-The format is as follows:```<type>(<scope>): <description>```
+
+The format is as follows:
+```<type>(<scope>): <description>```
 
 ### Types:
 - **feat**: A new feature for the user.
@@ -69,7 +71,8 @@ The format is as follows:```<type>(<scope>): <description>```
 - **refactor**: A code change that neither fixes a bug nor adds a feature.
 - **test**: Adding missing tests or correcting existing tests.
 
-### Example:```feat(game): add new game mode for advanced players```
+### Example:
+```feat(game): add new game mode for advanced players```
 
 ---
 
